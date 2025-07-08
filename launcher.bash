@@ -31,6 +31,7 @@ script_dir=${script_dir:?} # aborts with error if script_dir not set
 cd "$script_dir" || exit
 
 CLEAN_UNIX_PATH="$script_dir/clean3.1/CleanIDE.exe"
+CLEAN_IDEENVS_PATH="$script_dir/clean3.1/Config/IDEEnvs"
 CLEAN_WINDOWS_PATH="$(
     /opt/homebrew/bin/winepath -w "$CLEAN_UNIX_PATH" 2>/dev/null
 )"
@@ -44,6 +45,21 @@ if [ "$#" -gt 0 ]; then
         windows_path="$(
             /opt/homebrew/bin/winepath -w "$file_path" 2>/dev/null
         )"
+
+        # patch compiler/linker/codegen paths in IDEEnvs for nitrile project
+        extension="${file_path##*.}"
+        if [[ "$extension" == "prj" ]] && grep "^\s*Target:\s*nitrile\s*$" "$file_path" >/dev/null; then
+            log "patching paths for nitrile project in IDEEnvs to point to compiler/linker/codegen in current project"
+            # remove old nitrile env
+            /usr/bin/python3 remove_env.py "$CLEAN_IDEENVS_PATH" nitrile
+            # add new nitrile env with current project path
+            PROJECT_PATH=$(dirname "$file_path")
+            WINDOWS_PROJECT_PATH="$(
+                /opt/homebrew/bin/winepath -w "$PROJECT_PATH" 2>/dev/null
+            )"
+            cat "$script_dir/nitrile.env" | sed -e "s/PROJECT_PATH/${WINDOWS_PROJECT_PATH}/" >>"$CLEAN_IDEENVS_PATH"
+        fi
+
         log "Converted to Windows path: $windows_path"
         log "running cmd: \"$WINE_PATH\" start \"$CLEAN_WINDOWS_PATH\" \"$windows_path\" 2>/dev/null"
         "$WINE_PATH" start "$CLEAN_WINDOWS_PATH" "$windows_path" 2>/dev/null

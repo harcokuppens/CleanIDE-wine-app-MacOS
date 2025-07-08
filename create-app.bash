@@ -33,5 +33,6 @@ mv "$TMP_DIR/Clean 3.1/" "$WINDOWS_CLEAN_DIR"
     --document-icon "$ICON" --name 'CleanIDE' \
     --interface-type 'None' --interpreter '/bin/bash' --bundle-identifier nl.ru.cs.wineclean \
     --suffixes 'icl|prj|dcl' --uniform-type-identifiers 'public.item' \
-    --bundled-file "$WINDOWS_CLEAN_DIR" --author 'Harco Kuppens' \
+    --bundled-file "$WINDOWS_CLEAN_DIR" --bundled-file remove_env.py \
+    --bundled-file nitrile.env --author 'Harco Kuppens' \
     "$APP_LAUNCHER"
