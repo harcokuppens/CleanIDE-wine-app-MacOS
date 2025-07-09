@@ -17,23 +17,23 @@ wine "Clean 3.1/CleanIDE.exe"
 wine "Clean 3.1/CleanIDE.exe" "somedir\myproject.prj"
 ```
 
-Important to note that Wine is not perfect. Some Windows API's are not good implemented.
-However most things work fine.
+Important to note that Wine is not perfect. Some Windows API's are not good
+implemented. However most things work fine.
 
+## CleanIDE App on Macos (running CleanIDE.exe on wine)
 
-##  CleanIDE App on Macos (running CleanIDE.exe on wine)
+First you need to install wine. On MacOS you an easily install wine using homebrew
+with the command:
 
-First you need to install wine. On MacOS you an easily install wine using homebrew with the command:
+```bash
+brew install wine-stable
+```
 
-  ```bash
-  brew install wine-stable
-  ```
-
-Download  the
+Download the
 [`CleanIDE.app`](https://github.com/harcokuppens/clean-classic-helloworld/releases/download/macOS_application/CleanIDE.app.zip)
-from 
-[here](https://github.com/harcokuppens/clean-classic-helloworld/releases/download/macOS_application/CleanIDE.app.zip). 
-Unzip it and move the 'CleanIDE.app' to your `/Applications/` folder. 
+from
+[here](https://github.com/harcokuppens/clean-classic-helloworld/releases/download/macOS_application/CleanIDE.app.zip).
+Unzip it and move the 'CleanIDE.app' to your `/Applications/` folder.
 
 The `CleanIDE.app` supports:
 
@@ -50,7 +50,29 @@ $ duti -s nl.ru.cs.wineclean .icl all
 $ duti -s nl.ru.cs.wineclean .dcl all
 ```
 
+### Nitrile projects supported by `CleanIDE.app`
 
+The `CleanIDE.app` also supports nitrile projects which use the Clean tools
+(compiler/linker/code generator) installed as nitrile packages in the project itself.
+The `CleanIDE.app` requires the tools to be installed as Windows nitrile packages,
+because the CleanIDE.exe is run with wine. Therefore to build the project we need
+Windows libraries and executables.
+
+The`CleanIDE.app` automatically detects a nitrile project when it uses a 'nitrile'
+environment in its project file, otherwise it will handled it as a 'classic' clean
+project which uses the Clean tools and libraries in the CleanIDE.app itself.
+
+The
+[Clean nitrile example project](https://github.com/harcokuppens/clean-nitrile-helloworld.git)
+uses a Clean distribution installed with the `nitrile` tool. The project includes a
+simple “Hello, World!” console application, but it can also serve as a template for
+building other projects using `nitrile`. The nitrile tool installs the Clean runtime
+and its libraries as versioned packages, and also manages the build of the project,
+but you can also create a project file for the nitrile project and build it with cpm
+or the CleanIDE. The project has special support for creating a windows nitrile
+project on MacOS, which you then can compile with the windows 'cpm' on wine or edit
+with the CleanIDE. This Windows nitrile project uses the 'nitrile' environment in its
+project file and can be opened with the MacOS `CleanIDE.app`.
 
 ### Work around for annoying permission dialogs
 
@@ -82,8 +104,7 @@ Put it in:
 
 - the MacOS application always launches a new Clean IDE instance.
 
-
-### Background: how we created the MacOS app for Windows CleanIDE GUI app running with wine on  MacOS
+### Background: how we created the MacOS app for Windows CleanIDE GUI app running with wine on MacOS
 
 Requirements:
 
@@ -102,8 +123,8 @@ Requirements:
   brew install wine-stable
   ```
 
-Using the Platypus app you then can easily create a MacOS application using the `create-app.bash` script. We
-use it to create a MacOS application
+Using the Platypus app you then can easily create a MacOS application using the
+`create-app.bash` script. We use it to create a MacOS application
 [`CleanIDE.app`](https://github.com/harcokuppens/clean-classic-helloworld/releases/download/macOS_application/CleanIDE.app.zip)
 for the Windows CleanIDE.exe which runs in the background with wine.
 
@@ -196,4 +217,3 @@ which causes a `CleanIDE.app/` app folder to be created in the current folder.
             a new instance of Clean.
 
             Opening in an existing instance of Clean is unfortunately not possible in wine.
-
