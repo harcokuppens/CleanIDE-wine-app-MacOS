@@ -70,7 +70,8 @@ building other projects using `nitrile`. This project has special support for
 creating a windows nitrile project on MacOS, which you then can compile with the
 windows 'cpm' on wine or edit with the CleanIDE. The created Windows nitrile project
 uses the 'nitrile' environment in its project file and can be opened with the MacOS
-`CleanIDE.app`.
+`CleanIDE.app`. To quickly get started follow this project's
+[instructions for setting up a windows nitrile project which can be build with cpm using wine](https://github.com/harcokuppens/clean-nitrile-helloworld.git#cpm-build-using-wine-on-macoslinux-for-both-x64-and-arm).
 
 ### Work around for annoying permission dialogs
 
