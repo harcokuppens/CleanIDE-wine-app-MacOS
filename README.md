@@ -66,13 +66,11 @@ The
 [Clean nitrile example project](https://github.com/harcokuppens/clean-nitrile-helloworld.git)
 uses a Clean distribution installed with the `nitrile` tool. The project includes a
 simple “Hello, World!” console application, but it can also serve as a template for
-building other projects using `nitrile`. The nitrile tool installs the Clean runtime
-and its libraries as versioned packages, and also manages the build of the project,
-but you can also create a project file for the nitrile project and build it with cpm
-or the CleanIDE. The project has special support for creating a windows nitrile
-project on MacOS, which you then can compile with the windows 'cpm' on wine or edit
-with the CleanIDE. This Windows nitrile project uses the 'nitrile' environment in its
-project file and can be opened with the MacOS `CleanIDE.app`.
+building other projects using `nitrile`. This project has special support for
+creating a windows nitrile project on MacOS, which you then can compile with the
+windows 'cpm' on wine or edit with the CleanIDE. The created Windows nitrile project
+uses the 'nitrile' environment in its project file and can be opened with the MacOS
+`CleanIDE.app`.
 
 ### Work around for annoying permission dialogs
 
